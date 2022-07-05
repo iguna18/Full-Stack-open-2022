@@ -1,7 +1,7 @@
 const Filter = ({filter, setFilter})=> {
   
     const handleFilterChange = (event) =>
-      setFilter(event.target.value.toLowerCase())
+      setFilter(event.target.value)
   
     return (
       <>
