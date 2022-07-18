@@ -3,7 +3,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 app.use(cors())
-
+app.use(express.static('build'))
 app.use(express.json())
 morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
@@ -47,7 +47,8 @@ app.get('/api/persons/:id', (req, res)=>{
 })
 
 app.get('/info', (req, res)=>{
-    res.send(`<pre>Phonebook has info for ${persons.length} people\n${new Date()}</pre>`)
+    res.send('<h1>Hello deda!</h1>')
+    // res.send(`<pre>Phonebook has info for ${persons.length} people\n${new Date()}</pre>`)
 })
 
 app.delete('/api/persons/:id', (req, res)=>{
@@ -77,7 +78,7 @@ app.post('/api/persons', (req, res)=>{
     res.json(p)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`zealcove:  Server running on port ${PORT}`)
 })
