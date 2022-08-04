@@ -9,17 +9,22 @@
     "dev": "nodemon index.js",
     "build:ui": "rm -rf build && cd ../asd/ && npm run build && cp -r build ../phonebook-backend",
     "deploy": "git push heroku master",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",    
-    "logs:prod": "heroku logs --tail"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "author": "Irakli Gunashvili",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "mongoose": "^6.4.5",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-plugin-react": "^7.30.1",
     "nodemon": "^2.0.19"
   }
 }
