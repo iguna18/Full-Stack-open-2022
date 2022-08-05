@@ -26,11 +26,11 @@ app.get('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-//FIX THIS SHIT
+
 app.get('/info', (req, res) => {
   Person.countDocuments({}, (count) => {
     res.send(`<pre>Phonebook has info for ${ count } people\n${new Date()}</pre>`)
-  })
+  }).catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {
