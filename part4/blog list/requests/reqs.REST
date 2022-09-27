@@ -1,0 +1,57 @@
+POST http://localhost:3001/api/blogs
+content-type: application/json
+
+{
+   "title": "blerg",
+   "author": "grug",
+   "url": "grug.ru/blerg",
+   "likes": "2" 
+}
+###
+GET http://localhost:3001/api/blogs/
+###
+GET http://localhost:3001/api/blogs/6319cb7e5042c2f3dff885ad
+
+###
+DELETE http://localhost:3001/api/blogs/6332196d41c3fbad102cc997 HTTP/1.1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtlc28iLCJpZCI6IjYzMzIxNmZlNDFjM2ZiYWQxMDJjYzk4YSIsImlhdCI6MTY2NDIyNzY2NX0.tqHERIRNv7tUiNGSC_Zyxpx5DPofyE2MWmAJVNeuF_8
+###
+GET http://localhost:3001/api/users/633216fe41c3fbad102cc98a HTTP/1.1
+###
+GET http://localhost:3001/api/users/ HTTP/1.1
+
+###
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+   "name":"keso",
+   "username":"keso",
+   "password":"keso"
+
+}
+###
+POST http://localhost:3001/api/blogs
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtlc28iLCJpZCI6IjYzMzIxNmZlNDFjM2ZiYWQxMDJjYzk4YSIsImlhdCI6MTY2NDIyNzY2NX0.tqHERIRNv7tUiNGSC_Zyxpx5DPofyE2MWmAJVNeuF_8
+
+{
+   "title": "keke",
+    "author": "keke",
+    "url": "keke",
+    "likes": 19
+}
+
+###
+PATCH http://localhost:3001/api/users/6312294790b98fb8ff0121e0
+content-type: application/json
+
+{ "newBlog": "6312294790b98fb8ff0121e0" }
+###
+POST http://localhost:3001/api/login/
+content-type: application/json
+
+{
+   "username":"keso",
+   "password":"keso"
+}
