@@ -4,16 +4,11 @@ import UserPage from './components/UserPage'
 import LoginPage from './components/LoginPage'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  const MESSAGE_TIMEOUT_PERIOD = 3500
   const [user, setUser] = useState(null)
+  const [messageText, setMessageText] = useState(null)
+  const [isError, setIsError] = useState(false)
 
-  useEffect(() => {
-    blogService
-      .getAll()
-      .then(blogs =>
-        setBlogs( blogs )
-      )  
-  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -24,10 +19,18 @@ const App = () => {
     }
   }, [])
 
-  if(user) {
-    return <UserPage blogs={blogs} setUser={setUser} user={user}/>
+  const messageStatesKit = {
+    messageText, setMessageText,
+    isError, setIsError,
+    setMessageClearingTimeout: () => {
+      setTimeout(()=>{setMessageText(null)}, MESSAGE_TIMEOUT_PERIOD)
+    }
   }
-  return <LoginPage setUser={setUser}/>
+
+  if(user) {
+    return <UserPage setUser={setUser} user={user} {...messageStatesKit}/>
+  }
+  return <LoginPage setUser={setUser} {...messageStatesKit}/>
 }
 
 export default App
