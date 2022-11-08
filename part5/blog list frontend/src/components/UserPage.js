@@ -91,13 +91,15 @@ const UserPage = ({ setUser, user, messageText, setMessageText,
       <Togglable buttonLabel='new blog'>
         <CreateNewBlog createBlog={createBlog}/>
       </Togglable>
-      {
-        blogs
-          .sort((a, b) => a.likes - b.likes)
-          .map(blog => <Blog key={blog.id} blog={blog} blogStyle={blogStyle}
-            addLike={addLike} removeBlog={removeBlog}
-            isCreatedByCurrentUser={blog.user_id.username === user.username}/>)
-      }
+      <ul>
+        {
+          blogs
+            .sort((a, b) => a.likes - b.likes)
+            .map(blog => <Blog key={blog.id} blog={blog} blogStyle={blogStyle}
+              addLike={addLike} removeBlog={removeBlog}
+              isCreatedByCurrentUser={blog.user_id.username === user.username}/>)
+        }
+      </ul>
     </div>
   )
 }

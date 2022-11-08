@@ -1,4 +1,4 @@
-const Message = ({text, isError}) => {
+const Message = ({ text, isError }) => {
   const messageStyle = {
     color:(isError?'red':'green')
   }

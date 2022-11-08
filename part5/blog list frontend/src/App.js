@@ -23,7 +23,7 @@ const App = () => {
     messageText, setMessageText,
     isError, setIsError,
     setMessageClearingTimeout: () => {
-      setTimeout(()=>{setMessageText(null)}, MESSAGE_TIMEOUT_PERIOD)
+      setTimeout(() => {setMessageText(null)}, MESSAGE_TIMEOUT_PERIOD)
     }
   }
 

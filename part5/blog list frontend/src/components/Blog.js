@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const Blog = ({blog, blogStyle, addLike, removeBlog, isCreatedByCurrentUser}) => {
+const Blog = ({ blog, blogStyle, addLike, removeBlog, isCreatedByCurrentUser }) => {
   const [visible, setVisible] = useState(false)
   const [isRemoved, setIsRemoved] = useState(false)
 
@@ -10,31 +10,28 @@ const Blog = ({blog, blogStyle, addLike, removeBlog, isCreatedByCurrentUser}) =>
   }
 
   return (
-    <div style={isRemoved ? {display:'none'} : blogStyle}>
-      <p>
-        {blog.title}
-        <button onClick={toggleVisible}>{visible?'hide':'view'}</button>
-      </p>
+    <li style={isRemoved ? { display:'none' } : blogStyle}>
+      <p>{blog.title} by {blog.author}</p>
+      <button id='viewbutton' onClick={toggleVisible}>{visible?'hide':'view'}</button>
       {
         visible && (
           <>
-          <p>{blog.url}</p>
-          <p>
-            {blog.likes}
-            <button onClick={addLike(blog)}>like</button>
-          </p>
-          <p>{blog.author}</p>
-          {
-            isCreatedByCurrentUser && (
-              <p>
-                <button onClick={removeBlog(blog, setIsRemoved)}>remove</button>
-              </p>
-            )
-          }
+            <p>{blog.url}</p>
+            <p>
+              {blog.likes}
+              <button id='likebutton' onClick={addLike(blog)}>like</button>
+            </p>
+            {
+              isCreatedByCurrentUser && (
+                <p>
+                  <button onClick={removeBlog(blog, setIsRemoved)}>remove</button>
+                </p>
+              )
+            }
           </>
         )
       }
-    </div>  
+    </li>
   )
 }
 
