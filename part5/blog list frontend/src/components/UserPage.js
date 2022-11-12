@@ -94,7 +94,7 @@ const UserPage = ({ setUser, user, messageText, setMessageText,
       <ul>
         {
           blogs
-            .sort((a, b) => a.likes - b.likes)
+            .sort((a, b) => b.likes - a.likes)
             .map(blog => <Blog key={blog.id} blog={blog} blogStyle={blogStyle}
               addLike={addLike} removeBlog={removeBlog}
               isCreatedByCurrentUser={blog.user_id.username === user.username}/>)

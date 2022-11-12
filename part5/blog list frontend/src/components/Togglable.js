@@ -5,7 +5,8 @@ const Togglable = (props) => {
   return (
     <div>
       <div>
-        {!visible ? <button onClick={ () => setVisible(!visible) }>{ props.buttonLabel }</button> : <></>}
+        {!visible ? <button id='showbutton'
+          onClick={ () => setVisible(!visible) }>{ props.buttonLabel }</button> : <></>}
       </div>
       {visible ? props.children : <></>}
       <div>

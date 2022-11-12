@@ -14,11 +14,11 @@ const LoginForm = ({ loginFunction }) => {
 
   return (
     <form onSubmit={ handleSubmit }>
-      username <MyInput value={ username } setValue={ setUsername }/>
+      username <MyInput id='usernameinput' value={ username } setValue={ setUsername }/>
       <br/>
-      password <MyInput value={ password } setValue={ setPassword }/>
+      password <MyInput id='passwordinput' value={ password } setValue={ setPassword }/>
       <br/>
-      <button>login</button>
+      <button id='loginsubmitbutton'>login</button>
     </form>
   )
 }

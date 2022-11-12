@@ -10,7 +10,7 @@ const Blog = ({ blog, blogStyle, addLike, removeBlog, isCreatedByCurrentUser }) 
   }
 
   return (
-    <li style={isRemoved ? { display:'none' } : blogStyle}>
+    <li className='blogentry' style={isRemoved ? { display:'none' } : blogStyle}>
       <p>{blog.title} by {blog.author}</p>
       <button id='viewbutton' onClick={toggleVisible}>{visible?'hide':'view'}</button>
       {

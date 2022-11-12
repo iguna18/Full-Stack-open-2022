@@ -24,7 +24,7 @@ const CreateNewBlog = ({ createBlog }) => {
         <br/>
         url <MyInput value={url} setValue={setUrl}/>
         <br/>
-        <button>create</button>
+        <button id='createbutton'>create</button>
       </form>
     </div>
   )
