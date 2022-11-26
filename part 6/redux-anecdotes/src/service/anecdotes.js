@@ -8,7 +8,6 @@ const getAll = async () => {
 
 const addAnecdote = async (anecdote) => {
   const response = await axios.post(baseUrl, anecdote)
-  console.log(response.data)
   return response.data
 }
 

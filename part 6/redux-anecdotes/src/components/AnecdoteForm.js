@@ -1,22 +1,20 @@
-import { useDispatch } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { addNewAnecdote } from '../reducers/anecdoteSlice'
 import { setNotification } from '../reducers/messageSlice'
 
-const AnecdoteForm = () => {
-
-  const dispatch = useDispatch()
+const AnecdoteForm = (props) => {
   
   const submitForm = async (e) => {
     e.preventDefault()
     let anecdoteText = e.target.anecdote.value
     
     try {
-      dispatch(addNewAnecdote(anecdoteText))
+      props.addNewAnecdote(anecdoteText)
     } catch (error) {
-      dispatch(setNotification(`ERROR: "${error}"`))
+      props.setNotification(`ERROR: "${error}"`)
       return
     }
-    dispatch(setNotification(`ANECDOTE "${anecdoteText}" WAS SUCCESSFULLY CREATED`))
+    props.setNotification(`ANECDOTE "${anecdoteText}" WAS SUCCESSFULLY CREATED`)
     e.target.anecdote.value = ''
   }
 
@@ -31,4 +29,5 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+const mapDispatchToProps = { addNewAnecdote, setNotification }
+export default connect(null, mapDispatchToProps)(AnecdoteForm)
