@@ -1,9 +1,32 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { voteAC } from '../reducers/anecdoteReducer'
+import { voteAnecdote, initializeAnecdotes } from '../reducers/anecdoteSlice'
+import { setNotification } from '../reducers/messageSlice'
 
-const AnecdoteForm = () => {
-  const anecdotes = useSelector(state => state)
+const AnecdoteList = () => {
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(initializeAnecdotes())
+  }, [dispatch])
+  
+  const filter = useSelector(state => state.filter)
+
+  const anecdotes = useSelector(state => {
+    let anecdotes = state.anecdotes.filter(a => {
+      return a.content.toLowerCase().startsWith(filter.toLowerCase())
+    })
+    return [...anecdotes].sort((a, b) => b.votes - a.votes)
+  })
+
+  const onVote = async (anecdoteObject) => {
+    try {
+      dispatch(voteAnecdote(anecdoteObject))
+    } catch (error) {
+      dispatch(setNotification(`ERROR: "${error}"`))
+      return
+    }
+    dispatch(setNotification(`UPVOTED ANECTODE "${anecdoteObject.content}"`))
+  }
 
   return (
     <div>
@@ -14,7 +37,7 @@ const AnecdoteForm = () => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => dispatch(voteAC(anecdote.id))}>vote</button>
+            <button onClick={() => onVote(anecdote)}>vote</button>
           </div>
         </div>
       )}
@@ -22,4 +45,4 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+export default AnecdoteList

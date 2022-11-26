@@ -1,14 +1,23 @@
 import { useDispatch } from 'react-redux'
-import { createAC, sortAC } from '../reducers/anecdoteReducer'
+import { addNewAnecdote } from '../reducers/anecdoteSlice'
+import { setNotification } from '../reducers/messageSlice'
 
 const AnecdoteForm = () => {
 
   const dispatch = useDispatch()
-
-  const submitForm = (e) => {
+  
+  const submitForm = async (e) => {
     e.preventDefault()
-    dispatch(createAC(e.target.anecdote.value))
-    dispatch(sortAC())  
+    let anecdoteText = e.target.anecdote.value
+    
+    try {
+      dispatch(addNewAnecdote(anecdoteText))
+    } catch (error) {
+      dispatch(setNotification(`ERROR: "${error}"`))
+      return
+    }
+    dispatch(setNotification(`ANECDOTE "${anecdoteText}" WAS SUCCESSFULLY CREATED`))
+    e.target.anecdote.value = ''
   }
 
   return (

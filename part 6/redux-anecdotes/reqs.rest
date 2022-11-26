@@ -1,0 +1,11 @@
+GET http://localhost:3001/anecdotes
+
+###
+POST http://localhost:3001/anecdotes
+content-type:: application/json
+
+{"content":"jiijkjlk", "votes":0}
+
+###
+
+DELETE  http://localhost:3001/anecdotes/-3E9uUS
