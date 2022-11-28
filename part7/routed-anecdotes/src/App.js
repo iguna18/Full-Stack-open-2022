@@ -88,20 +88,19 @@ const CreateNew = (props) => {
 
   return (
     <div>
-          
       <h2>create a new anecdote</h2>
       <form onSubmit={(e)=>e.preventDefault()}>
         <div>
           content
-          <input {...content} />
+          <input {...content} reset=''/>
         </div>
         <div>
           author
-          <input {...author} />
+          <input {...author} reset=''/>
         </div>
         <div>
           url for more info
-          <input {...info} />
+          <input {...info} reset=''/>
         </div>
         <button onClick={onCreate}>create</button>
         <button onClick={onReset}>reset</button>
