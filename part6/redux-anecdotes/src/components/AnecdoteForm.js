@@ -1,4 +1,4 @@
-import { connect, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { addNewAnecdote } from '../reducers/anecdoteSlice'
 import { setNotification } from '../reducers/messageSlice'
 
