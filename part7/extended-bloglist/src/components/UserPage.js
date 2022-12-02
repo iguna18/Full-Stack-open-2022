@@ -46,6 +46,14 @@ const SingleBlog = ({blogToShow, addLike}) => {
       <p>{blogToShow.likes} likes</p>
       <button onClick={addLike(blogToShow)}>like</button>
       <p>added by @{blogToShow.user_id.username}</p>
+      <h5>comments</h5>
+      <ul>
+        {
+          blogToShow.comments.map(c => (
+            <li>{c}</li>
+          ))
+        }
+      </ul>
   </div>
   )
 }
@@ -104,20 +112,23 @@ const UserPage = () => {
   let blogsCopy = [...blogs]
   return (
     <div >
-
-      <div style={{backgroundColor:'red', color:'green'}}>
-        <h2 >blog app</h2>
-        <Message/>
+      <nav>
+        <Link style={{marginRight:'5px'}} to='/blogs'>blogs</Link>
+        <Link to='/users'>users</Link>
         {user.name} has logged in
         <button onClick = {onLogOut}>log out</button>        
+      </nav>
+        <Message/>
+      <div style={{backgroundColor:'red', color:'green'}}>
+        <h2 >blog app</h2>
       </div>
       <Routes>
-        <Route path='/' element={ // blogs view
+        <Route path='/blogs' element={ // blogs view
           <div>
+            <h3>Blogs</h3>
             <Togglable buttonLabel='new blog' >
               <CreateNewBlog />
             </Togglable>
-            <h3>Blogs</h3>
             <ul>
               {
                 blogsCopy
