@@ -1,23 +1,25 @@
 import { addBlog, setBlogs, updateBlog } from "./blogsSlice"
-import { changeMessage } from "./messageSlice"
-import blogService from "../services/blogs"
+import { setUsers } from "./usersSlice"
+import { setMessage } from "./messageSlice"
+import blogsService from "../services/blogs"
+import usersService from "../services/users"
 
 export const setNotification = (text) => (dispatch) => {
-    dispatch(changeMessage(text))
+    dispatch(setMessage(text))
     setTimeout(()=>{
-    dispatch(changeMessage(null))
+    dispatch(setMessage(null))
     }, 5000)
 }
 
 export const createBlog = (title, author, url) => async (dispatch) => {
-  const newBlog = await blogService.create({ title, author, url })
+  const newBlog = await blogsService.create({ title, author, url })
   console.log(newBlog);
   // newBlog returned from server has 'id' and 'likes' fields too
   dispatch(addBlog(newBlog))
 }
 
 export const likeBlog = (blog) => async (dispatch, getState) => {
-  await blogService.increaseLike(blog)
+  await blogsService.increaseLike(blog)
   const id = blog.id
   const blogs = getState().blogs
   let theBlog = blogs.find(b => b.id == id)
@@ -29,7 +31,7 @@ export const likeBlog = (blog) => async (dispatch, getState) => {
 
 export const initializeBlogs = () => async (dispatch) => {
   try {
-    let blogs = await blogService.getAll()
+    let blogs = await blogsService.getAll()
     dispatch(setBlogs(blogs))
   } catch (error) {
     dispatch(setNotification(error.message))
@@ -37,7 +39,17 @@ export const initializeBlogs = () => async (dispatch) => {
 }
 
 export const deleteBlog = (blog) => async (dispatch, getState) => {
-  await blogService.removeOne(blog.id)
+  await blogsService.removeOne(blog.id)
   const blogs = getState().blogs
   dispatch(setBlogs(blogs.filter(b=>b.id != blog.id)))
+}
+
+
+export const initializeUsers = () => async (dispatch) => {
+  try {
+    let users = await usersService.getAll()
+    dispatch(setUsers(users))
+  } catch (error) {
+    dispatch(setNotification(error.message))
+  }
 }

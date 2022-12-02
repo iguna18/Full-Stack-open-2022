@@ -2,25 +2,23 @@ import { useState, useEffect } from 'react'
 import blogService from './services/blogs'
 import UserPage from './components/UserPage'
 import LoginPage from './components/LoginPage'
-import { changeMessage } from './reducers/messageSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser } from './reducers/userSlice'
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const dispatch = useDispatch()
+
+  const user = useSelector(state => state.user)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
+      const localStorageUser = JSON.parse(loggedUserJSON)
+      dispatch(setUser(localStorageUser))
+      blogService.setToken(localStorageUser.token)
     }
   }, [])
-
-
-  if(user) {
-    return <UserPage setUser={setUser} user={user}/>
-  }
-  return <LoginPage setUser={setUser}/>
+  return user != null ? <UserPage/> : <LoginPage/>
 }
 
 export default App
