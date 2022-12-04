@@ -13,7 +13,6 @@ export const setNotification = (text) => (dispatch) => {
 
 export const createBlog = (title, author, url) => async (dispatch) => {
   const newBlog = await blogsService.create({ title, author, url })
-  console.log(newBlog);
   // newBlog returned from server has 'id' and 'likes' fields too
   dispatch(addBlog(newBlog))
 }
@@ -49,6 +48,18 @@ export const initializeUsers = () => async (dispatch) => {
   try {
     let users = await usersService.getAll()
     dispatch(setUsers(users))
+  } catch (error) {
+    dispatch(setNotification(error.message))
+  }
+}
+
+export const newComment = (blog, comment) => async (dispatch, getState) => {
+  try {
+    const commentAndId = await blogsService.addComment(blog.id, comment)
+    let theBlog = getState().blogs.find(b=>b.id == blog.id)
+    theBlog = {...theBlog}
+    theBlog.comments.push(commentAndId)
+    dispatch(updateBlog(theBlog))
   } catch (error) {
     dispatch(setNotification(error.message))
   }

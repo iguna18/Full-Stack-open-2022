@@ -45,4 +45,15 @@ const removeOne = (blog_id) => {
   )
 }
 
-export default { getAll, create, setToken, increaseLike, removeOne }
+const addComment = (blog_id, comment) => {
+  const config = {
+    headers: { Authorization:token }
+  }
+  return (
+    axios
+      .post(`${baseUrl}/${blog_id}/comments`, {comment:comment}, config)
+      .then(response => response.data)
+  )
+}
+
+export default { getAll, create, setToken, increaseLike, removeOne, addComment}

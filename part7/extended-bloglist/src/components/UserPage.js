@@ -4,7 +4,7 @@ import CreateNewBlog from './CreateNewBlog'
 import Message from './Message'
 import Togglable from './Togglable'
 import { useSelector, useDispatch } from 'react-redux'
-import {likeBlog, setNotification, deleteBlog,initializeBlogs, initializeUsers} from '../reducers/thunks'
+import {likeBlog, setNotification, deleteBlog,initializeBlogs, initializeUsers, newComment} from '../reducers/thunks'
 import { setUser } from '../reducers/userSlice'
 import {
   Routes, Route, Link, useMatch, useNavigate
@@ -34,7 +34,7 @@ const SingleUser = ({userToShow}) => {
   )
 }
 
-const SingleBlog = ({blogToShow, addLike}) => {
+const SingleBlog = ({blogToShow, addLike, addComment}) => {
   if(!blogToShow)
     return (
       <div></div>
@@ -47,11 +47,15 @@ const SingleBlog = ({blogToShow, addLike}) => {
       <button onClick={addLike(blogToShow)}>like</button>
       <p>added by @{blogToShow.user_id.username}</p>
       <h5>comments</h5>
+      <form onSubmit={addComment}>
+        <input name='inp'></input>
+        <button>add comment</button>
+      </form>
       <ul>
         {
-          blogToShow.comments.map(c => (
-            <li>{c}</li>
-          ))
+          blogToShow.comments.map(c => {
+            return <li key={c.id}>{c.text}</li>
+          })
         }
       </ul>
   </div>
@@ -93,6 +97,13 @@ const UserPage = () => {
     } catch (error) {
       dispatch(setNotification(error.message))
     } 
+  }
+
+  const addComment = (e) => {
+    e.preventDefault()
+    const c = e.target.inp.value
+    dispatch(newComment(blogToShow, c))
+    dispatch(setNotification(`added comment ${c} to blog ${blogToShow.title}`))
   }
 
   const blogStyle = {
@@ -178,7 +189,7 @@ const UserPage = () => {
           <SingleUser userToShow={userToShow}/>
         }/>
         <Route path='/blogs/:id' element={
-          <SingleBlog blogToShow={blogToShow} addLike={addLike}/>
+          <SingleBlog blogToShow={blogToShow} addLike={addLike} addComment={addComment}/>
         }/>
       </Routes>
 
