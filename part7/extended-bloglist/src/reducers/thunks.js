@@ -3,6 +3,7 @@ import { setUsers } from "./usersSlice"
 import { setMessage } from "./messageSlice"
 import blogsService from "../services/blogs"
 import usersService from "../services/users"
+import {cloneDeep} from 'lodash' 
 
 export const setNotification = (text) => (dispatch) => {
     dispatch(setMessage(text))
@@ -57,10 +58,11 @@ export const newComment = (blog, comment) => async (dispatch, getState) => {
   try {
     const commentAndId = await blogsService.addComment(blog.id, comment)
     let theBlog = getState().blogs.find(b=>b.id == blog.id)
-    theBlog = {...theBlog}
+    theBlog = cloneDeep(theBlog)
     theBlog.comments.push(commentAndId)
     dispatch(updateBlog(theBlog))
   } catch (error) {
+    console.log(error);
     dispatch(setNotification(error.message))
   }
 }
