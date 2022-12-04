@@ -6,11 +6,12 @@ import Togglable from './Togglable'
 import { setNotification } from '../reducers/thunks'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../reducers/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
 
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const LogIn = (username, password) => {
     loginService
       .login(username, password)
@@ -19,7 +20,8 @@ const LoginPage = () => {
           'loggedBlogappUser', JSON.stringify(retrievedUsed))
         dispatch(setUser(retrievedUsed))
         blogService.setToken(retrievedUsed.token)
-        dispatch(setNotification('fucking logged in'))
+        dispatch(setNotification('logged in'))
+        navigate('/blogs')
       })
       .catch(exception => {
         dispatch(setNotification(exception.message))

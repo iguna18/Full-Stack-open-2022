@@ -18,7 +18,11 @@ const App = () => {
       blogService.setToken(localStorageUser.token)
     }
   }, [])
-  return user != null ? <UserPage/> : <LoginPage/>
+  return (
+    <div className="container">
+      {user != null ? <UserPage/> : <LoginPage/>}
+    </div>
+  )
 }
 
 export default App

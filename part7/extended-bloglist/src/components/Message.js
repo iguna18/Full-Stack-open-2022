@@ -1,4 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux'
+import { Alert } from 'react-bootstrap'
 
 const Message = () => {
   let text = useSelector(state => state.message)
@@ -9,9 +10,9 @@ const Message = () => {
     return null
 
   return (
-    <div style={messageStyle}>
+    <Alert variant="success">
       {text}
-    </div>
+    </Alert>
   )
 }
 

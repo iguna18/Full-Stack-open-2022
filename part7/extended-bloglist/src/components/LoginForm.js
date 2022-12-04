@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import MyInput from './MyInput'
 
+
 const LoginForm = ({ loginFunction }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -14,7 +15,8 @@ const LoginForm = ({ loginFunction }) => {
 
   return (
     <form onSubmit={ handleSubmit }>
-      username <MyInput id='usernameinput' value={ username } setValue={ setUsername }/>
+      username 
+      <MyInput id='usernameinput' value={ username } setValue={ setUsername }/>
       <br/>
       password <MyInput id='passwordinput' value={ password } setValue={ setPassword }/>
       <br/>

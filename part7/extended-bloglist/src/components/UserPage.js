@@ -7,8 +7,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import {likeBlog, setNotification, deleteBlog,initializeBlogs, initializeUsers, newComment} from '../reducers/thunks'
 import { setUser } from '../reducers/userSlice'
 import {
-  Routes, Route, Link, useMatch, useNavigate
+  Routes, Route, Link, useMatch 
 } from "react-router-dom"
+import { Table } from 'react-bootstrap'
 
 const SingleUser = ({userToShow}) => {
   if(!userToShow)
@@ -159,7 +160,7 @@ const UserPage = () => {
         <Route path='/users' element={ // users view
           <div>
             <h3>Users</h3>
-            <table>
+            <Table striped>
               <thead>
                 <tr>
                   <th> </th>
@@ -182,7 +183,7 @@ const UserPage = () => {
                   })
                 }
               </tbody>
-            </table>
+            </Table>
           </div>
         } />
         <Route path='/users/:id' element={
